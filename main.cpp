@@ -8,11 +8,10 @@ struct tRegistro{
 };
 
 struct tListado{
-	int numDo;
-	string apeNomb;
-	int pasSoli;
+	int noVendidos;
+	int pasDisponibles;
 	int vueloSoli;
-	//int pasNvendido;
+
 };
 
 
@@ -35,35 +34,35 @@ struct nodoListado{
 //calcular %
 void calcular(int cantDisp, int pasSoli, int pasNven){
     int total= 0;
+    int resul=0;
     if(cantDisp > pasSoli){
         total= cantDisp - pasSoli;
-        cout << "cant pasajes disponibles" << total <<endl;
-    //return 0;
+
     }
     else{
-        pasNven = pasSoli+total;
-        cout << "cant pasajes disponibles" << pasNven <<endl;
+        resul = pasSoli + pasNven;
+        cout << "cant de pasajes no vendidos" << resul <<endl;
     //return 0;
     }
 }
 
-/*nodoListado* buscarListado(nodoListado* lista,int info)
+nodoListado* buscarListado(nodoListado* lista,int info)
 {
 	nodoListado* p=lista;
-	while (p!=NULL && p->info.numDo!=info)
+	while (p!=NULL && p->info.vueloSoli!=info)
 	{
 		p=p->sgte;
 	}
 	return p;
-}*/
+}
 
 void push (nodoDni* &pila, tDni v)
 {
 	nodoDni* nuevo = new nodoDni(); //genera el nuevo nodo reservando espacio en memoria
-	nuevo->info.codVuelo= v.codVuelo; // asigna el dato al campo de informaci髇
-	nuevo->info.dni = v.dni;// asigna el dato al campo de informaci髇
-    nuevo->info.apeNombre= v.apeNombre;// asigna el dato al campo de informaci髇
-	nuevo->info.cantPasajes= v.cantPasajes;// asigna el dato al campo de informaci髇
+	nuevo->info.codVuelo= v.codVuelo; // asigna el dato al campo de informaci贸n
+	nuevo->info.dni = v.dni;// asigna el dato al campo de informaci贸n
+    nuevo->info.apeNombre= v.apeNombre;// asigna el dato al campo de informaci贸n
+	nuevo->info.cantPasajes= v.cantPasajes;// asigna el dato al campo de informaci贸n
 	nuevo->sgte = pila;
 	pila = nuevo; //apunta la pila al nuevo nodo insertado
 }
@@ -96,14 +95,6 @@ int main(){
 	v.dni=66666666;
 	push(listaDni,v);
 
-
-
-	/*nodoListado* lista=NULL;
-	nodoListado* aux=NULL;
-	tListado regAux;
-
-    nodoListado* listaM=NULL;
-    listaM=lista;*/
     while(listaDni!=NULL){
 
         cout << "Dni:" << listaDni->info.dni<< ", apellido y nombre: " << listaDni->info.apeNombre << " CANT DE PASAJES: " << listaDni->info.cantPasajes<< " Cod de vuelo: " << listaDni->info.codVuelo<<endl;
@@ -115,52 +106,29 @@ int main(){
     nodoListado* lista=NULL;
     nodoListado* aux=NULL;
     tListado regAux;
+    int i;
 
 
-    for(i=0;i<=tRegistro.length;i=+2){
-            //for(int i=3; i<=500;i=+4){
-                if(vectorRegistro[i]!= NULL){
-                    aux=buscarListado(lista,vectorPolizas[i].pasSoli);
+    for(i=0;i<=500;i++){
+                if(listaDni != NULL){
+                    aux=buscarListado(lista,vectorRegistro[i].codVuel);
                     if(aux==NULL)
                     {
-
-                        regAux.codVuelo=vectorRegistro[i].codVuel;
-                        //regAux.cantPasaj=calcular(vectorRegistro[i].cantPasaj);
-                        regAux.cantPasaj=calcular(vectorRegistro[i].cantDisp,regAux.pasSoli);
-                        //regAux.pasNvend=calcular([i]); //pasNvendido,
-                        regAux.apeNomb=listaDni.info.dni;
-                        regAux.numDo=listaDni.info.apeNombre;
-                        //cout<<regAux);
-                        cout << "cant pasajes disponibles" << regAux.cantPasaj<<endl;
+                        regAux.vueloSoli=vectorRegistro[i].codVuel;
+                        regAux.pasDisponibles=vectorRegistro[i].cantPasaj;
+                        regAux.noVendidos=0;
                     }
-
-
+//calcular(vectorRegistro[i].cantDisp,regAux.pasSoli)
                     else
                     {
-                        aux->info.cantDisp+=calcular(vectorRegistro[i].pasNven);
-                        cout << "cant pasajes no vendidos" << regAux>pasNven<<endl;
+                      aux->info.vueloSoli+= calcular(vectorRegistro[i].cantPasaj,regAux.pasDisponibles,regAux.noVendidos)
 
+                        }
 
                     }
                   }
-            //}
-        }
-           // nodoListado* listaM=NULL;
-           // listaM=lista;
-    /*tRegistro.codVuelo=vueloSoli;
-    tRegistro.cantPasaj= cantLibres;
-    total=0;
-    tDni.cantPasajes=pasaSolicitados;
-
-    for(i=1;i<=length.tRegistro;i+=2){
-        if (total == cantLibres){
-            total=cantLibres-pasaSolicitados;
-        }
-        else{
 
         }
-    }*/
+
     return 0;
 }
-
-
